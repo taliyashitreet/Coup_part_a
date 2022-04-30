@@ -1,15 +1,20 @@
 #include <iostream>
 #include "Contessa.hpp"
+#include "Assassin.hpp"
 using namespace std;
 
 namespace coup{
-    Contessa::Contessa(Game game, string name){
-         this->game =game;
-         this->name = name;
-         this->coins_count = 0;
+    class Assassin;
+    Contessa::Contessa(Game& game, string name): Player(game, name){
          this->player_role = "Contessa";
-         this->game._players.push_back(name);
 }
-void Contessa::block(Player player){
+void Contessa::block(Player &player){
+    if(!player.player_role.compare("Assassin")){
+        throw runtime_error("Contessa can block only Assassin");
+    }
+    if(!player.last_action.compare("coup")){
+        throw runtime_error("You missed the block option");
+    }
+    player.blocked();   
 }
 }

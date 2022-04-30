@@ -1,22 +1,27 @@
 
 
+#pragma once
 #include <iostream>
 #include "Game.hpp"
-#pragma once
 using namespace std;
 
 namespace coup{
+    class Game;
     class Player{
-        protected:
-            Game game; 
+        public:
+        Player(Game &game, string name);
+            Game *game; 
             string name;
             int coins_count; //How many coins does he have
-            string player_role; 
-        public:
+            string player_role; // What is its role
+            string last_action; //what is the last action of this player
+            bool is_active;
+            virtual void blocked();
             void income(); // Take a coin from the pile
             void foreign_aid(); //Earns the player two coins
-            void coup(Player); //Which player he decided to dismiss
-            string role(); // What is its role
+            virtual void coup(Player); //Which player he decided to dismiss
             int coins(); //How many coins does a player have
+            ~Player(){}
+
     };
 }
